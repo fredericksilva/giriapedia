@@ -1,0 +1,7 @@
+<ul id="map">
+  <li ng-repeat="estado in vm.listEstados track by $index" id="c{{ estado.code }}" estado="{{ estado.code }}">
+    <a href="#/{{ estado.code }}/" id="{{ estado.code }}" title="{{ estado.code | uppercase }}">
+      <img ng-src="{{ estado.static }}" alt="{{ estado.code | uppercase }}" />
+    </a>
+  </li>
+</ul>

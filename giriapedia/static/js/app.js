@@ -2,14 +2,26 @@
   'use strict';
   angular
     .module(
-      "UltraBusca",
+      "GiriaPedia",
       [
         "ngRoute",
         "ui.bootstrap"
       ]
     )
-    .config(function($interpolateProvider){
-      $interpolateProvider.startSymbol("{!");
-      $interpolateProvider.endSymbol("!}");
-    })
+    .config(routePedia);
+
+
+  function routePedia($routeProvider) {
+    $routeProvider
+      .when('/', {
+        templateUrl: 'static/js/partials/map.html',
+        controller: 'MapperController',
+        controllerAs: 'vm'
+      })
+      .otherwise({
+        redirectTo: '/'
+      })
+
+  }
+
 })();
