@@ -1,0 +1,15 @@
+<div class="form-giria">
+  <button type="button" class="close" ng-click="vm.showForm=!vm.showForm">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+  <br />
+
+  <form name="newUserForm" method="POST" accept-charset="utf-8">
+    <div class="form-group">
+      <label for="username"></label>
+      <input ng-model="vm.newUser.username" type="text" name="username" class="form-control" id="username" required>
+    </div>
+  </form>
+
+</div>

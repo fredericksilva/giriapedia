@@ -1,0 +1,34 @@
+<div class="form-giria">
+  <button type="button" class="close" ng-click="vm.showForm=!vm.showForm">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+  <br />
+
+  <form name="createGiriaForm" method="POST" accept-charset="utf-8" novalidate>
+    <div class="form-group">
+      <label for="giria">Giria</label>
+      <input ng-model="vm.createGiria.giria" type="text" name="giria" class="form-control" id="giria" required="" placeholder="Insira uma Giria">
+      <div class="help-block" ng-show="createGiriaForm.$submitted || createGiriaForm.giria.$touched">
+        <p ng-show="createGiriaForm.giria.$error.required" class="alert alert-danger">
+          Você não inseriu a Giria
+        </p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descrição</label>
+      <textarea ng-model="vm.createGiria.description" class="form-control" name="description" id="description" placeholder="Insira uma breve descricao da Giria" required="">
+      </textarea>
+      <div class="help-block" ng-show="createGiriaForm.$submitted || createGiriaForm.description.$touched">
+        <p ng-show="createGiriaForm.description.$error.required" class="alert alert-danger">
+          Você não inseriu a descrição
+        </p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button type="button" class="btn btn-primary" ng-disabled="createGiriaForm.$invalid" ng-click="vm.saveGiria()">Salvar</button>
+    </div>
+  </form>
+</div>

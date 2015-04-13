@@ -1,0 +1,30 @@
+<h2 class="text-center">
+  Girias - {{ vm.estadoAtual | uppercase }}
+</h2>
+
+<table class="table" ng-show="!vm.girias">
+  <thead>
+    <th>Giria</th>
+    <th>Signigicados</th>
+    <th>Votes</th>
+  </thead>
+  <tbody>
+    <tr ng-repeat="giria in vm.girias">
+      <td>{{ giria.giria }}</td>
+      <td>{{ giria.description }}</td>
+      <td>100</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="text-center" ng-show="vm.girias">
+  <hr />
+  <h4>Não temos Girias para {{ vm.estadoAtual | uppercase }}</h4>
+  <button class="btn btn-primary" ng-show="!vm.showForm" ng-click="vm.showForm=!vm.showForm">
+    Cadastrar Giria
+  </button>
+
+  <div ng-show="vm.showForm">
+    <create-giria></create-giria>
+  </div>
+</div>
