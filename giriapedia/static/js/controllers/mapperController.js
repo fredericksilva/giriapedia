@@ -8,9 +8,13 @@
   function MapperController($scope, estados) {
     var vm = this;
 
-    estados.list(function(listEstados){
-      vm.listEstados = listEstados;
-    });
+    var activate = function() {
+      estados.list(function(listEstados){
+        vm.listEstados = listEstados;
+      })
+    }
+
+    activate();
   };
 
 })();
