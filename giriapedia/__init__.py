@@ -17,10 +17,15 @@ def main(global_config, **settings):
     # routes
 
     config.add_route('home', '/')
-    config.add_route('estado', '/g/{state}/')
     config.add_route('estados', '/estados/')
     config.add_route('girias:collection', '/girias/')
     config.add_route('girias:items', '/girias/{giria_id}/')
+
+    # auth, login, logout
+
+    config.add_route('singin', '/singin/')
+    config.add_route('login', '/login/')
+    config.add_route('logout', '/logout/')
     config.scan()
 
     return config.make_wsgi_app()
