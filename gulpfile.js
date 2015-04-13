@@ -25,7 +25,7 @@ gulp.task('bundle-scripts', ['clean_bundled'], function() {
   };
   gulp.src(jsPath.jsSrc)
     .pipe(concat('bundled.js'))
-    .pipe(ngAnnotate())
+    .pipe(ngAnnotate({add: true}))
     .pipe(uglify())
     .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest(jsPath.jsDest));
