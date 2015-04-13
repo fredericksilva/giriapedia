@@ -8,10 +8,11 @@
 
   function GiriaServer($http) {
     return {
-      list: function(callback) {
+      list: function(state, callback) {
         $http({
           method: 'GET',
           url: '/girias/',
+          params: {state: state},
           cache: true
         }).success(callback);
       },
@@ -21,7 +22,15 @@
           method: 'GET',
           url: '/girias/'+ giriaId +'/',
           cache: true
-        }).success(callback)
+        }).success(callback);
+      },
+
+      create: function(formGiria, callback){
+        $http({
+          method: 'POST',
+          url: '/girias/',
+          data: formGiria
+        }).success(callback);
       }
     };
   };
