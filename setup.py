@@ -9,9 +9,13 @@ with open(os.path.join(here, 'CHANGES.txt')) as f:
     CHANGES = f.read()
 
 requires = [
+    'passlib',
+    'pycountry',
+    'pyjwt',
     'pyramid',
-    'pyramid_chameleon',
     'pyramid_debugtoolbar',
+    'pyramid_mako',
+    'pyramid_mongoengine',
     'waitress',
     ]
 
