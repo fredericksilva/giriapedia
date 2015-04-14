@@ -3,7 +3,7 @@
 
   angular
     .module("GiriaPedia")
-    .factory("signInServer", SignInServer);
+    .factory("signinServices", SignInServer);
 
   function SignInServer($http) {
 
@@ -18,4 +18,4 @@
     }
 
   }
-})
+})();

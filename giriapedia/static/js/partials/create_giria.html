@@ -18,8 +18,7 @@
 
     <div class="form-group">
       <label for="description">Descrição</label>
-      <textarea ng-model="vm.createGiria.description" class="form-control" name="description" id="description" placeholder="Insira uma breve descricao da Giria" required="">
-      </textarea>
+      <textarea ng-model="vm.createGiria.description" class="form-control" name="description" id="description" placeholder="Insira uma breve descricao da Giria" required=""> </textarea>
       <div class="help-block" ng-show="createGiriaForm.$submitted || createGiriaForm.description.$touched">
         <p ng-show="createGiriaForm.description.$error.required" class="alert alert-danger">
           Você não inseriu a descrição

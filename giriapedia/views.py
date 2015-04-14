@@ -1,5 +1,8 @@
+# -*- coding: utf8 -*-
 from pyramid.view import view_config, view_defaults
-from .models import State, Giria
+from .models import State, Giria, User
+
+import jwt
 
 
 @view_config(route_name='home', renderer='templates/main.html')
@@ -29,7 +32,7 @@ class GiriaCollectionView(object):
             state = State.objects(code=self.current_state).first()
             girias = Giria.objects(state=state).all()
             return girias
-        return Girias.objects.all()
+        return Giria.objects.all()
 
     @view_config(request_method="POST")
     def create(self):
@@ -56,14 +59,46 @@ class GiriaItemView(object):
         return {}
 
 
-@view_config(route_name="singin", request_method="POST", renderer="json")
-def singin(request):
-    pass
+def encode_token(req, payload):
+    del payload["password"]
+    return jwt.encode(payload, req.settings.get("giriasecret", "galado"))
+
+
+def decode_token(req, jwt_str):
+    return jwt.decode(jwt_str, req.settings.get("giriasecret", "galado"))
+
+
+@view_config(route_name="signin", request_method="POST", renderer="json")
+def signin(request):
+    """View to create new user in system"""
+    user_payload = request.json
+
+    if User.objects(username=user_payload["username"]).first():
+        return {"success": False, "error": "Este usuario ja esta cadastrado."}
+
+    token = jwt.encode(
+        user_payload,
+        encode_token(user_payload)
+    )
+
+    user_payload["token"] = token
+    new_user = User(**user_payload)
+    new_user.save()
+
+    return {"success": True, "token": token}
 
 
 @view_config(route_name="login", request_method="POST", renderer="json")
 def login(request):
-    pass
+    user = User.objects(username=request.json.get("username")).first()
+
+    if not user or not user.verify_password(request.json.get("password")):
+        return {
+            "success": False,
+            "error": "Usuario não cadastrado ou Senha incorreta"
+        }
+
+    return {"success": True, "token": user.token}
 
 
 @view_config(route_name="logout", request_method="POST", renderer="json")

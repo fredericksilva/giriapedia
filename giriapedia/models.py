@@ -10,7 +10,7 @@ class User(db.Document):
 
     username = db.StringField(unique=True)
     password = db.StringField(required=True)
-    name = db.StringField(max_length=40)
+    email = db.StringField(max_length=1000)
     token = db.StringField(max_length=1000)
 
     def clean(self):

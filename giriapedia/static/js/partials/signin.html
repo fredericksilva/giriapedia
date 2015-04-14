@@ -1,14 +1,48 @@
 <div class="form-giria">
-  <button type="button" class="close" ng-click="vm.showForm=!vm.showForm">
+  <a ui-sref="login" class="close">
     <span aria-hidden="true">&times;</span>
-  </button>
+  </a>
 
   <br />
 
   <form name="newUserForm" method="POST" accept-charset="utf-8">
     <div class="form-group">
-      <label for="username"></label>
+      <label for="email">Email</label>
+      <input ng-model="vm.newUser.email" type="email" name="email"
+      class="form-control" id="email" required>
+      <div class="help-block" ng-show="newUserForm.$submitted || newUserForm.email.$touched">
+        <p ng-show="newUserForm.email.$error.required" class="alert alert-danger">
+          Insira seu Email
+        </p>
+        <p ng-show="newUserForm.email.$invalid" class="alert alert-danger">
+          Digite um email válido
+        </p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="username">Usuário</label>
       <input ng-model="vm.newUser.username" type="text" name="username" class="form-control" id="username" required>
+      <div class="help-block" ng-show="newUserForm.$submitted || newUserForm.username.$touched">
+        <p ng-show="newUserForm.username.$error.required" class="alert alert-danger">
+          Insira um novo Usuário
+        </p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Senha</label>
+      <input ng-model="vm.newUser.password" type="password" name="password"
+      class="form-control" id="password" required>
+      <div class="help-block" ng-show="newUserForm.$submitted || newUserForm.password.$touched">
+        <p ng-show="newUserForm.password.$error.required" class="alert alert-danger">
+          Insira uma Senha
+        </p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button type="button" class="btn btn-primary btn-block"
+        ng-disabled="newUserForm.$invalid" ng-click="vm.createUser()">Cadastrar</button>
     </div>
   </form>
 
