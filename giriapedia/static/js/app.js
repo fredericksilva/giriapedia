@@ -58,6 +58,15 @@
         requiresLogin: true
       }
     },
+    createGiria = {
+      url: "/giria/:stateC/criar/",
+      templateUrl: 'static/js/partials/create_giria.html',
+      controller: 'GiriasEstado',
+      controllerAs: 'vm',
+      data: {
+        requiresLogin: true
+      }
+    },
     login = {
       url: "/auth/login/",
       templateUrl: "static/js/partials/login.html",
@@ -78,6 +87,7 @@
     $stateProvider
       .state("home", home)
       .state("giriasEstado", state)
+      .state("criarGiria", createGiria)
       .state("login", login)
       .state("signin", signin)
       .state("logout", logout);
