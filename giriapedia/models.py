@@ -29,21 +29,21 @@ class State(db.Document):
     name = db.StringField()
 
 
-class GiriaDescription(db.EmbeddedDocument):
-
-    description = db.StringField(max_length=2000)
-    votes = db.LongField(default=0)
-
-
 class Giria(db.Document):
     meta = {"collection": "girias"}
 
     giria = db.StringField(required=True, unique_with="state")
     description = db.ListField(
-        db.EmbeddedDocumentField(GiriaDescription)
+        db.EmbeddedDocumentField('GiriaDescription')
     )
     state = db.ReferenceField(State)
     user = db.ReferenceField(User)
+
+
+class GiriaDescription(db.EmbeddedDocument):
+
+    description = db.StringField(max_length=2000)
+    votes = db.LongField(default=0)
 
 
 class Comment(db.EmbeddedDocument):

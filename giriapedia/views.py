@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 from pyramid.view import view_config, view_defaults
-from .models import State, Giria, User
+from .models import *
 
 import jwt
 
@@ -25,17 +25,41 @@ class GiriaCollectionView(object):
     def __init__(self, request):
         self.req = request
         self.current_state = self.req.params.get('state')
+        self.token = self.req.headers.get("Authorization", "").split(" ")[1]
 
     @view_config(request_method="GET")
     def collection(self):
         if self.current_state:
             state = State.objects(code=self.current_state).first()
             girias = Giria.objects(state=state).all()
+            if not girias:
+                return None
             return girias
         return Giria.objects.all()
 
     @view_config(request_method="POST")
     def create(self):
+        giria = self.req.json
+
+        state = State.objects(code=giria["state"]).first()
+        user = User.objects(token=self.token).first()
+
+        new_giria = Giria()
+        new_giria.giria = giria["giria"]
+        new_giria.state = state
+        new_giria.user = user
+
+        descriptions = GiriaDescription(description=giria["description"])
+        new_giria.description.append(descriptions)
+
+        # Vericar se existe esta giria cadastrada com esse estado
+        # Se existir, redireciona para a giria ja cadastrada e pede para criar
+        # uma outra descrição
+        try:
+            new_giria.save()
+        except:
+            pass
+
         return {'success': True}
 
 
