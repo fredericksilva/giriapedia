@@ -5,14 +5,14 @@
     .module('GiriaPedia')
     .controller('GiriasEstado', GiriasEstado);
 
-  function GiriasEstado($scope, $stateParams, giriaServer, toastr) {
+  function GiriasEstado($scope, $stateParams, giriaServer, toastr, $state) {
     var vm = this;
 
-    vm.estadoAtual = $stateParams.state;
+    vm.estadoAtual = $stateParams.state || $stateParams.stateC;
     vm.createGiria = {state: vm.estadoAtual};
 
     var activate = function() {
-      giriaServer.list(vm.estadoAtual, function(girias){
+      return giriaServer.list(vm.estadoAtual, function(girias){
         vm.girias = girias;
       });
     };
@@ -24,7 +24,8 @@
           // Get Girias
           activate();
           // Hide form
-          vm.showForm = false;
+          $state.go("giriasEstado", {state: vm.estadoAtual});
+          vm.createGiria = {state: vm.estadoAtual};
         } else {
           toastr.error(giriaReturn.error, "Error ao salvar");
         }
