@@ -7,12 +7,16 @@
 
   function CreateGiria() {
 
+    /*
     var directive = {
       restrict: 'E',
       templateUrl: 'static/js/partials/create_giria.html',
       controller: 'GiriasEstado',
       controllerAs: 'vm'
     };
+   */
+
+    var directive = {};
 
     return directive;
   }
