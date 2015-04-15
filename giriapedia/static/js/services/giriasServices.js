@@ -13,7 +13,6 @@
           method: 'GET',
           url: '/girias/',
           params: {state: state},
-          cache: true
         }).success(callback);
       },
 
