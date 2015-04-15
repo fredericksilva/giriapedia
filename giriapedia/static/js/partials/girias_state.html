@@ -2,29 +2,55 @@
   Girias - {{ vm.estadoAtual | uppercase }}
 </h2>
 
-<table class="table" ng-show="!vm.girias">
-  <thead>
-    <th>Giria</th>
-    <th>Signigicados</th>
-    <th>Votes</th>
-  </thead>
-  <tbody>
-    <tr ng-repeat="giria in vm.girias">
-      <td>{{ giria.giria }}</td>
-      <td>{{ giria.description }}</td>
-      <td>100</td>
-    </tr>
-  </tbody>
-</table>
+<div ng-show="vm.girias">
+  <div class="row text-right">
+    <a ui-sref="home" class="btn btn-default">
+      <i class="fa fa-globe"></i>
+      Voltar ao mapa
+    </a>
+    <a ui-sref="criarGiria({stateC: vm.estadoAtual})" class="btn btn-primary">
+      <i class="fa fa-plus-square"></i>
+      Cadastrar nova Giria
+    </a>
+  </div>
+  <br />
+  <div class="row">
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered">
+        <thead>
+          <th>Giria</th>
+          <th>Signigicados</th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="giria in vm.girias">
+            <td>{{ giria.giria }}</td>
+            <td>
+              <ul>
+                <!--
+                criar directiva para verificar se existe mais de 1 description,
+                se houver, mostrar como modal.
+                -->
+                <li ng-repeat='desc in giria.description'>
+                  {{ desc.description }} - {{ desc.votes }}
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
-<div class="text-center" ng-show="vm.girias">
+<div class="text-center" ng-hide="vm.girias">
   <hr />
   <h4>Não temos Girias para {{ vm.estadoAtual | uppercase }}</h4>
-  <button class="btn btn-primary" ng-show="!vm.showForm" ng-click="vm.showForm=!vm.showForm">
+  <a ui-sref="home" class="btn btn-default">
+    <i class="fa fa-globe"></i>
+    Voltar ao mapa
+  </a>
+  <a ui-sref="criarGiria({stateC: vm.estadoAtual})" class="btn btn-primary">
+    <i class="fa fa-plus-square"></i>
     Cadastrar Giria
-  </button>
-
-  <div ng-show="vm.showForm">
-    <create-giria></create-giria>
-  </div>
+  </a>
 </div>
