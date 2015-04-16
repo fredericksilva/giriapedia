@@ -1,0 +1,25 @@
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <h3 class="modal-title">Outros Significados</h3>
+    </div>
+    <div class="modal-body">
+      <div class="row" ng-repeat="item in vm.items">
+        <div class="col-lg-9">
+          {{ item.description }}
+        </div>
+        <div class="col-lg-3">
+          <i class="fa fa-arrow-down"></i>
+          {{ item.votes }}
+          <i class="fa fa-arrow-up"></i>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a class="btn btn-default" ng-click="vm.addSignificado()">
+        Adicionar Significado
+      </a>
+      <button class="btn btn-primary" ng-click="vm.close()">Fechar</button>
+    </div>
+
+  </div>

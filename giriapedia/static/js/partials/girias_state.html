@@ -1,39 +1,52 @@
+<div class="row text-right">
+  <a ui-sref="home" class="btn btn-default">
+    <i class="fa fa-globe"></i>
+    Voltar ao mapa
+  </a>
+  <a ui-sref="criarGiria({stateC: vm.estadoAtual})" class="btn btn-primary">
+    <i class="fa fa-plus-square"></i>
+    Cadastrar nova Giria
+  </a>
+</div>
 <h2 class="text-center">
   Girias - {{ vm.estadoAtual | uppercase }}
 </h2>
 
 <div ng-show="vm.girias">
-  <div class="row text-right">
-    <a ui-sref="home" class="btn btn-default">
-      <i class="fa fa-globe"></i>
-      Voltar ao mapa
-    </a>
-    <a ui-sref="criarGiria({stateC: vm.estadoAtual})" class="btn btn-primary">
-      <i class="fa fa-plus-square"></i>
-      Cadastrar nova Giria
-    </a>
-  </div>
   <br />
   <div class="row">
     <div class="table-responsive">
       <table class="table table-hover table-bordered">
         <thead>
           <th>Giria</th>
-          <th>Signigicados</th>
+          <th>Significados</th>
         </thead>
         <tbody>
           <tr ng-repeat="giria in vm.girias">
             <td>{{ giria.giria }}</td>
             <td>
-              <ul>
                 <!--
                 criar directiva para verificar se existe mais de 1 description,
                 se houver, mostrar como modal.
                 -->
+              <ul class="list-unstyled">
                 <li ng-repeat='desc in giria.description'>
-                  {{ desc.description }} - {{ desc.votes }}
+                  <div class="row">
+                    <div class="col-lg-6">
+                      {{ desc.description }}
+                    </div>
+                    <div class="col-lg-6">
+                      <button type="button"
+                        class="btn btn-info btn-sm"
+                        ui-sref="giriaDescription({stateC: vm.estadoAtual, giria: giria.giria})">
+                        <i class="fa fa-plus"></i>
+                        Significados
+                      </button>
+                    </div>
+                  </div>
                 </li>
               </ul>
+
             </td>
           </tr>
         </tbody>
@@ -45,12 +58,4 @@
 <div class="text-center" ng-hide="vm.girias">
   <hr />
   <h4>Não temos Girias para {{ vm.estadoAtual | uppercase }}</h4>
-  <a ui-sref="home" class="btn btn-default">
-    <i class="fa fa-globe"></i>
-    Voltar ao mapa
-  </a>
-  <a ui-sref="criarGiria({stateC: vm.estadoAtual})" class="btn btn-primary">
-    <i class="fa fa-plus-square"></i>
-    Cadastrar Giria
-  </a>
 </div>

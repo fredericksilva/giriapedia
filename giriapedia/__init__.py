@@ -19,7 +19,7 @@ def main(global_config, **settings):
     config.add_route('home', '/')
     config.add_route('estados', '/estados/')
     config.add_route('girias:collection', '/girias/')
-    config.add_route('girias:items', '/girias/{giria_id}/')
+    config.add_route('girias:items', '/girias/{giria}/{state}/')
 
     # auth, login, logout
 

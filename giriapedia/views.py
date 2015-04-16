@@ -1,5 +1,6 @@
 # -*- coding: utf8 -*-
 from pyramid.view import view_config, view_defaults
+from pyramid.httpexceptions import exception_response
 from .models import *
 
 import jwt
@@ -25,7 +26,8 @@ class GiriaCollectionView(object):
     def __init__(self, request):
         self.req = request
         self.current_state = self.req.params.get('state')
-        self.token = self.req.headers.get("Authorization", "").split(" ")[1]
+        auth = self.req.headers.get("Authorization")
+        self.token = auth.split(" ")[1] if auth else None
 
     @view_config(request_method="GET")
     def collection(self):
@@ -68,11 +70,16 @@ class GiriaItemView(object):
 
     def __init__(self, request):
         self.req = request
-        self.giria_id = self.req.matchdict['giria_id']
+        self.giria = self.req.matchdict['giria']
+        self.state = self.req.matchdict['state']
 
     @view_config(request_method="GET")
     def get_giria(self):
-        return {}
+        state = State.objects(code=self.state).first()
+        giria = Giria.objects(state=state, giria=self.giria).first()
+        if giria:
+            return giria
+        return exception_response(404)
 
     @view_config(request_method="PUT")
     def update_giria(self):

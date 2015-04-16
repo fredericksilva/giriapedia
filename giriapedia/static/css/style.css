@@ -2,3 +2,15 @@
   margin: 0 auto;
   width: 50%;
 }
+
+.content-giria {
+  margin: 0 auto;
+  width: 65%;
+}
+
+.border-desc {
+  border-radius: 14px 14px 14px 14px;
+  -moz-border-radius: 14px 14px 14px 14px;
+  -webkit-border-radius: 14px 14px 14px 14px;
+  border: solid #828082;
+}

@@ -16,11 +16,10 @@
         }).success(callback);
       },
 
-      find: function(giriaId, callback){
+      find: function(giriaInfo, callback){
         $http({
           method: 'GET',
-          url: '/girias/'+ giriaId +'/',
-          cache: true
+          url: '/girias/' + giriaInfo.giria + '/' + giriaInfo.state + '/',
         }).success(callback);
       },
 

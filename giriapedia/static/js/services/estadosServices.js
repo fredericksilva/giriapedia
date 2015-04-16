@@ -12,7 +12,6 @@
         $http({
           method: 'GET',
           url: '/estados/',
-          cache: true
         }).success(callback);
       }
     };

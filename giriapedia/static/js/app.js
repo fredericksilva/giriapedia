@@ -31,8 +31,8 @@
     $rootScope.$on('$stateChangeStart', function(event, to, toParams, fromState, fromParams) {
       if (to.data && to.data.requiresLogin) {
         if (!store.get('jwt') || jwtHelper.isTokenExpired(store.get('jwt'))) {
-          if(to.name === "giriasEstado") {
-            store.set("estado", toParams.state);
+          if(to.name === "criarGiria") {
+            store.set("estado", toParams.stateC);
           }
           event.preventDefault();
           $state.go('login');
@@ -54,9 +54,6 @@
       templateUrl: 'static/js/partials/girias_state.html',
       controller: 'GiriasEstado',
       controllerAs: 'vm',
-      data: {
-        requiresLogin: true
-      }
     },
     createGiria = {
       url: "/giria/:stateC/criar/",
@@ -66,6 +63,12 @@
       data: {
         requiresLogin: true
       }
+    },
+    giriaDescription = {
+      url: "/giria/:stateC/:giria/significados/",
+      templateUrl: 'static/js/partials/giria_significados.html',
+      controller: 'GiriasEstado',
+      controllerAs: 'vm',
     },
     login = {
       url: "/auth/login/",
@@ -88,6 +91,7 @@
       .state("home", home)
       .state("giriasEstado", state)
       .state("criarGiria", createGiria)
+      .state("giriaDescription", giriaDescription)
       .state("login", login)
       .state("signin", signin)
       .state("logout", logout);
