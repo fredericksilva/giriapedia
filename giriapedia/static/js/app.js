@@ -96,9 +96,10 @@
       .state("signin", signin)
       .state("logout", logout);
 
+      /*
       angular.extend(toastrConfig, {
-        preventDuplicates: true
       });
+     */
 
   };
 

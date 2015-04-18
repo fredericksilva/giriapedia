@@ -1,25 +1,25 @@
   <div class="modal-content">
 
     <div class="modal-header">
-      <h3 class="modal-title">Outros Significados</h3>
+      <h3 class="modal-title">Adicionar Significado para {{ vm.item.giria }}</h3>
     </div>
     <div class="modal-body">
-      <div class="row" ng-repeat="item in vm.items">
-        <div class="col-lg-9">
-          {{ item.description }}
+      <form method="POST" name="descriptionForm" novalidate>
+        <div class="form-group">
+          <label for="description">
+            Descreva o novo significado
+          </label>
+          <textarea ng-model="vm.newDesc.description" class="form-control" name="description" id="description" required></textarea>
         </div>
-        <div class="col-lg-3">
-          <i class="fa fa-arrow-down"></i>
-          {{ item.votes }}
-          <i class="fa fa-arrow-up"></i>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <a class="btn btn-default" ng-click="vm.addSignificado()">
-        Adicionar Significado
-      </a>
-      <button class="btn btn-primary" ng-click="vm.close()">Fechar</button>
-    </div>
+        <div class="form-group">
+          <button class="btn btn-default" type="button" ng-click="vm.close()">
+            Fechar
+          </button>
 
+          <button class="btn btn-primary" type="button" ng-disabled="descriptionForm.$invalid" ng-click="vm.addSignificado()">
+            Adicionar Significado
+          </button>
+        </div>
+      </form>
+    </div>
   </div>

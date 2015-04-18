@@ -1,13 +1,16 @@
 <div class="row text-right">
-  <a ui-sref="home" class="btn btn-default">
-    <i class="fa fa-globe"></i>
-    Voltar ao mapa
-  </a>
-  <a ui-sref="criarGiria({stateC: vm.estadoAtual})" class="btn btn-primary">
-    <i class="fa fa-plus-square"></i>
-    Cadastrar nova Giria
-  </a>
+  <div class="col-xs-12">
+    <a ui-sref="home" class="btn btn-default">
+      <i class="fa fa-globe"></i>
+      Voltar ao mapa
+    </a>
+    <a ui-sref="criarGiria({stateC: vm.estadoAtual})" class="btn btn-primary">
+      <i class="fa fa-plus-square"></i>
+      Cadastrar nova Giria
+    </a>
+  </div>
 </div>
+
 <h2 class="text-center">
   Girias - {{ vm.estadoAtual | uppercase }}
 </h2>
@@ -25,19 +28,18 @@
           <tr ng-repeat="giria in vm.girias">
             <td>{{ giria.giria }}</td>
             <td>
-                <!--
+              <!--
                 criar directiva para verificar se existe mais de 1 description,
                 se houver, mostrar como modal.
                 -->
               <ul class="list-unstyled">
                 <li ng-repeat='desc in giria.description'>
                   <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-md-6 col-xs-6">
                       {{ desc.description }}
                     </div>
-                    <div class="col-lg-6">
-                      <button type="button"
-                        class="btn btn-info btn-sm"
+                    <div ng-show="$first" class="col-md-6 col-xs-6">
+                      <button type="button" class="btn btn-info btn-sm"
                         ui-sref="giriaDescription({stateC: vm.estadoAtual, giria: giria.giria})">
                         <i class="fa fa-plus"></i>
                         Significados
@@ -46,7 +48,6 @@
                   </div>
                 </li>
               </ul>
-
             </td>
           </tr>
         </tbody>

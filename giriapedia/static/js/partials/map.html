@@ -1,7 +1,11 @@
-<ul id="map">
-  <li ng-repeat="estado in vm.listEstados track by $index" id="c{{ estado.code }}" estado="{{ estado.code }}">
-    <a ui-sref="giriasEstado({state: estado.code})" id="{{ estado.code }}" title="{{ estado.code | uppercase }}">
-      <img ng-src="{{ estado.static }}" alt="{{ estado.code | uppercase }}" />
-    </a>
-  </li>
-</ul>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-xs-12">
+    <ul id="map">
+      <li ng-repeat="estado in vm.listEstados track by $index" id="c{{ estado.code }}" estado="{{ estado.code }}">
+        <a ui-sref="giriasEstado({state: estado.code})" id="{{ estado.code }}" title="{{ estado.code | uppercase }}">
+          <img ng-src="{{ estado.static }}" alt="{{ estado.code | uppercase }}" />
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

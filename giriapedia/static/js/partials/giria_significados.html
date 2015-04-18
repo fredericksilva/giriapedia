@@ -1,29 +1,33 @@
 <div class="row">
   <div class="text-right">
-    <a ui-sref="giriasEstado({state: vm.estadoAtual})" class="btn btn-default">
-      Voltar para Girias/{{ vm.estadoAtual | uppercase }}
-    </a>
-    <a href="#" class="btn btn-primary">
-      Adicionar novo significado
-    </a>
+    <div class="col-xs-12">
+      <a ui-sref="giriasEstado({state: vm.estadoAtual})" class="btn btn-default">
+        <i class="fa fa-chevron-left"></i>
+        Voltar para Girias/{{ vm.estadoAtual | uppercase }}
+      </a>
+      <button type="button" class="btn btn-primary" ng-click="vm.openModal({giria: vm.giriaDesc.giria})">
+        <i class="fa fa-plus-square"></i>
+        Adicionar novo significado
+      </button>
+    </div>
   </div>
 </div>
 <div class="content-giria">
   <div class="row">
     <h2 class="text-center">{{ vm.giriaDesc.giria | uppercase }}</h2>
     <div class="row">
-      <div class="col-lg-10">
+      <div class="col-md-10 col-xs-8">
         <h4>Significado</h4>
       </div>
-      <div class="col-lg-2">
+      <div class="col-md-2 col-xs-4">
         <h4>Votos</h4>
       </div>
     </div>
     <div class="row border-desc" ng-repeat="desc in vm.giriaDesc.description">
-      <div class="col-lg-10">
+      <div class="col-md-10 col-xs-8">
         {{ desc.description }}
       </div>
-      <div class="col-lg-2">
+      <div class="col-md-2 col-xs-4">
         <i class="fa fa-arrow-down fa-fw"></i>
         {{ desc.votes }}
         <i class="fa fa-arrow-up fa-fw"></i>

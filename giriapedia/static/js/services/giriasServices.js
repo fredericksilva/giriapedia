@@ -23,6 +23,14 @@
         }).success(callback);
       },
 
+      update: function(giriaInfo, giriaData, callback){
+        $http({
+          method: 'PUT',
+          url: '/girias/' + giriaInfo.giria + '/' + giriaInfo.state + '/',
+          data: giriaData
+        }).success(callback);
+      },
+
       create: function(formGiria, callback){
         $http({
           method: 'POST',

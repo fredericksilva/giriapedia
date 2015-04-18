@@ -72,6 +72,8 @@ class GiriaItemView(object):
         self.req = request
         self.giria = self.req.matchdict['giria']
         self.state = self.req.matchdict['state']
+        auth = self.req.headers.get("Authorization")
+        self.token = auth.split(" ")[1] if auth else None
 
     @view_config(request_method="GET")
     def get_giria(self):
@@ -83,7 +85,17 @@ class GiriaItemView(object):
 
     @view_config(request_method="PUT")
     def update_giria(self):
-        return {}
+        state = State.objects(code=self.state).first()
+        giria = Giria.objects(state=state, giria=self.giria).first()
+
+        # Salvando sem verificar descrição
+        if giria:
+            new_desc = GiriaDescription(description=self.req.json["description"])
+            giria.description.append(new_desc)
+            giria.save()
+
+            return {"success": True}
+        return exception_response(404)
 
     @view_config(request_method="DELETE")
     def delete_giria(self):

@@ -48,14 +48,17 @@
       });
     }
 
-    function openModal(descriptions) {
+    function openModal(item){
       var modalInstance = $modal.open({
         templateUrl: "static/js/partials/descriptionsModal.html",
         controller: "ModalDescriptionCtrl",
         controllerAs: "vm",
         resolve: {
-          items: function () {
-            return descriptions;
+          giriaData: function () {
+            return {
+              giria: item.giria,
+              state: vm.estadoAtual
+            };
           }
         }
       });
