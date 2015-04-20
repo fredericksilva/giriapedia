@@ -16,3 +16,16 @@ Normalmente é uma pessoa que "aparentemente", vai te assaltar em qualquer momen
 
 Pois bem, em resumo, o Giriapédia é uma plataforma colaborativa, onde os usuários poderão cadastrar girias e seus significados em cada estado.
 
+
+# Tecnologias
+
+1 - Angular.js:
+  * [ui-route](https://angular-ui.github.io/ui-router/)
+  * [Angular Storage](https://github.com/auth0/angular-storage)
+  * [Angular JWT](https://github.com/auth0/angular-jwt)
+
+2 - Pyramid
+  * [Pyramid-Mako](https://github.com/Pylons/pyramid_mako)
+
+3 - MongoDB
+  * [Pyramid Mongoengine](https://github.com/marioidival/pyramid_mongoengine)
