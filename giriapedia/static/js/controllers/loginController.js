@@ -17,9 +17,9 @@
         if(data.success === true){
           store.set("jwt", data.token);
           $state.go("giriasEstado", {state: store.get("estado")});
-          toastr.success("Seja Bem Vindo");
+          toastr.success("Seja Bem Vindo", "Giriapédia");
         } else {
-          toastr.error(data.error);
+          toastr.error(data.error, "Giriapédia");
           $state.go("login");
         }
       });

@@ -1,5 +1,9 @@
 <div class="row text-right">
   <div class="col-xs-12">
+    <a ui-sref="logout" class="btn btn-danger">
+      <i class="fa fa-sign-out"></i>
+      Sair
+    </a>
     <a ui-sref="home" class="btn btn-default">
       <i class="fa fa-globe"></i>
       Voltar ao mapa
@@ -26,19 +30,19 @@
         </thead>
         <tbody>
           <tr ng-repeat="giria in vm.girias">
-            <td>{{ giria.giria }}</td>
+            <td>{{ giria.giria | uppercase }}</td>
             <td>
               <!--
                 criar directiva para verificar se existe mais de 1 description,
                 se houver, mostrar como modal.
                 -->
               <ul class="list-unstyled">
-                <li ng-repeat='desc in giria.description'>
+                <li>
                   <div class="row">
                     <div class="col-md-6 col-xs-6">
-                      {{ desc.description }}
+                      {{ giria.description[0].description }}
                     </div>
-                    <div ng-show="$first" class="col-md-6 col-xs-6">
+                    <div class="col-md-6 col-xs-6">
                       <button type="button" class="btn btn-info btn-sm"
                         ui-sref="giriaDescription({stateC: vm.estadoAtual, giria: giria.giria})">
                         <i class="fa fa-plus"></i>

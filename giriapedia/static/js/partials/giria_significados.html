@@ -1,6 +1,10 @@
 <div class="row">
   <div class="text-right">
     <div class="col-xs-12">
+      <a ui-sref="logout" class="btn btn-danger">
+        <i class="fa fa-sign-out"></i>
+        Sair
+      </a>
       <a ui-sref="giriasEstado({state: vm.estadoAtual})" class="btn btn-default">
         <i class="fa fa-chevron-left"></i>
         Voltar para Girias/{{ vm.estadoAtual | uppercase }}
@@ -25,13 +29,20 @@
     </div>
     <div class="row border-desc" ng-repeat="desc in vm.giriaDesc.description">
       <div class="col-md-10 col-xs-8">
-        {{ desc.description }}
+        #{{ $index + 1 }} - {{ desc.description }}
       </div>
       <div class="col-md-2 col-xs-4">
-        <i class="fa fa-arrow-down fa-fw"></i>
-        {{ desc.votes }}
-        <i class="fa fa-arrow-up fa-fw"></i>
-      </div>
+        <span ng-show="desc.votes.users.indexOf(vm.currentUser) == -1">
+          <i class="fa fa-arrow-down fa-fw" ng-click="vm.downVote($index)"></i>
+          {{ desc.votes.votes | number }}
+          <i class="fa fa-arrow-up fa-fw" ng-click="vm.upVote($index)"></i>
+        </span>
+
+        <span ng-hide="desc.votes.users.indexOf(vm.currentUser) == -1">
+          <i class="fa fa-arrow-down text-danger"></i>
+          {{ desc.votes.votes | number }}
+          <i class="fa fa-arrow-up text-danger"></i>
+        </span>
       </div>
     </div>
   </div>

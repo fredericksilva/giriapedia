@@ -24,10 +24,32 @@
       },
 
       update: function(giriaInfo, giriaData, callback){
+        var url = '/girias/' + giriaInfo.giria + '/' + giriaInfo.state + '/';
+
         $http({
           method: 'PUT',
-          url: '/girias/' + giriaInfo.giria + '/' + giriaInfo.state + '/',
+          url: url,
           data: giriaData
+        }).success(callback);
+      },
+
+      upVote: function(giriaInfo, giriaVote, callback){
+        var url = '/girias/' + giriaInfo.giria + '/' + giriaInfo.state + '/';
+
+        $http({
+          method: 'PUT',
+          url: url + "?upvotes=true",
+          data: giriaVote
+        }).success(callback);
+      },
+
+      downVote: function(giriaInfo, giriaVote, callback){
+        var url = '/girias/' + giriaInfo.giria + '/' + giriaInfo.state + '/';
+
+        $http({
+          method: 'PUT',
+          url: url + "?downvotes=true",
+          data: giriaVote
         }).success(callback);
       },
 

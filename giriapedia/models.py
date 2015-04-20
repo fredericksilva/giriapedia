@@ -43,7 +43,7 @@ class Giria(db.Document):
 class GiriaDescription(db.EmbeddedDocument):
 
     description = db.StringField(max_length=2000)
-    votes = db.LongField(default=0)
+    votes = db.DictField()
 
 
 class Comment(db.EmbeddedDocument):

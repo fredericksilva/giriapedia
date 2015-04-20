@@ -39,6 +39,7 @@ class GiriaCollectionView(object):
             return girias
         return Giria.objects.all()
 
+
     @view_config(request_method="POST")
     def create(self):
         giria = self.req.json
@@ -46,21 +47,22 @@ class GiriaCollectionView(object):
         state = State.objects(code=giria["state"]).first()
         user = User.objects(token=self.token).first()
 
+        if Giria.objects(giria=giria['giria'].lower(), state=state).first():
+            return {"success": False, "error": "Já existe essa giria cadastrada"}
+
         new_giria = Giria()
-        new_giria.giria = giria["giria"]
+        new_giria.giria = giria["giria"].lower()
         new_giria.state = state
         new_giria.user = user
 
-        descriptions = GiriaDescription(description=giria["description"])
-        new_giria.description.append(descriptions)
+        new_giria.description.append(
+            prepare_user_description(giria)
+        )
+        new_giria.save()
 
         # Vericar se existe esta giria cadastrada com esse estado
         # Se existir, redireciona para a giria ja cadastrada e pede para criar
         # uma outra descrição
-        try:
-            new_giria.save()
-        except:
-            pass
 
         return {'success': True}
 
@@ -70,7 +72,7 @@ class GiriaItemView(object):
 
     def __init__(self, request):
         self.req = request
-        self.giria = self.req.matchdict['giria']
+        self.giria = self.req.matchdict['giria'].lower()
         self.state = self.req.matchdict['state']
         auth = self.req.headers.get("Authorization")
         self.token = auth.split(" ")[1] if auth else None
@@ -90,21 +92,76 @@ class GiriaItemView(object):
 
         # Salvando sem verificar descrição
         if giria:
-            new_desc = GiriaDescription(description=self.req.json["description"])
-            giria.description.append(new_desc)
+            giria.description.append(
+                prepare_user_description(self.req.json)
+            )
+
             giria.save()
+
+            self.sort_description(giria)
 
             return {"success": True}
         return exception_response(404)
+
+    @view_config(request_method="PUT", request_param="upvotes=true")
+    def send_upvote(self):
+        state = State.objects(code=self.state).first()
+        giria = Giria.objects(state=state, giria=self.giria).first()
+
+        ind = self.req.json['description']
+        if giria:
+            giria.description[ind].votes['votes'] += 1
+            giria.description[ind].votes['users'].append(self.token)
+            giria.save()
+
+            self.sort_description(giria)
+
+            return {"success": True, "giria": giria}
+        return {}
+
+    @view_config(request_method="PUT", request_param="downvotes=true")
+    def send_downvote(self):
+        state = State.objects(code=self.state).first()
+        giria = Giria.objects(state=state, giria=self.giria).first()
+
+        ind = self.req.json['description']
+        if giria:
+            giria.description[ind].votes['votes'] -= 1
+            giria.description[ind].votes['users'].append(self.token)
+            giria.save()
+
+            self.sort_description(giria)
+
+            return {"success": True, "giria": giria}
+        return {}
+
+    def sort_description(self, giria):
+        """Sort description by votes and save"""
+        giria.description = sorted(
+            giria.description,
+            key=lambda g: g.votes['votes'],
+            reverse=True
+        )
+        giria.save()
 
     @view_config(request_method="DELETE")
     def delete_giria(self):
         return {}
 
 
+def prepare_user_description(giria_info):
+
+    descriptions = GiriaDescription(
+        description=giria_info["description"],
+        votes={"users": set(), "votes": 0}
+    )
+
+    return descriptions
+
+
 def encode_token(req, payload):
     del payload["password"]
-    return jwt.encode(payload, req.settings.get("giriasecret", "galado"))
+    return jwt.encode(payload, req.registry.settings.get("giriasecret", "galado"))
 
 
 def decode_token(req, jwt_str):
@@ -119,9 +176,10 @@ def signin(request):
     if User.objects(username=user_payload["username"]).first():
         return {"success": False, "error": "Este usuario ja esta cadastrado."}
 
+    token_payload = user_payload.copy()
     token = jwt.encode(
-        user_payload,
-        encode_token(user_payload)
+        token_payload,
+        encode_token(request, token_payload)
     )
 
     user_payload["token"] = token

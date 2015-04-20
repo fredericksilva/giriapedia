@@ -9,6 +9,8 @@
 }
 
 .border-desc {
+  padding: 5%;
+  margin-bottom: 3%;
   border-radius: 14px 14px 14px 14px;
   -moz-border-radius: 14px 14px 14px 14px;
   -webkit-border-radius: 14px 14px 14px 14px;
