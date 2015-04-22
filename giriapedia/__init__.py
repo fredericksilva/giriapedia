@@ -5,10 +5,10 @@ def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
     config = Configurator(settings=settings)
+
     config.include("pyramid_mako")
     config.include("pyramid_mongoengine")
-    config.add_static_view("static", "static")
-    # config.add_static_view("static", "static", cache_max_age=3600)
+    config.add_static_view("static", "static", cache_max_age=3600)
 
     # own config's
 
@@ -16,17 +16,16 @@ def main(global_config, **settings):
     config.add_connection_database()
 
     # routes
-
     config.add_route('home', '/')
     config.add_route('estados', '/estados/')
     config.add_route('girias:collection', '/girias/')
     config.add_route('girias:items', '/girias/{giria}/{state}/')
 
     # auth, login, logout
-
     config.add_route('signin', '/signin/')
     config.add_route('login', '/login/')
     config.add_route('logout', '/logout/')
+
     config.scan()
 
     return config.make_wsgi_app()
