@@ -1,4 +1,3 @@
--e git+https://github.com/marioidival/giriapedia.git@5079359159472e33105bb1d190658e56e7088811#egg=giriapedia-master
 Mako==1.0.1
 MarkupSafe==0.23
 mongoengine==0.8.7
