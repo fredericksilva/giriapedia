@@ -18,6 +18,7 @@
 }
 
 .content-app {
+  min-height: 500px !important;
 }
 
 .footer {
