@@ -1,18 +1,6 @@
 <div class="row text-right">
-  <div class="col-xs-12">
-    <a ui-sref="logout" class="btn btn-danger">
-      <i class="fa fa-sign-out"></i>
-      Sair
-    </a>
-    <a ui-sref="home" class="btn btn-default">
-      <i class="fa fa-globe"></i>
-      Voltar ao mapa
-    </a>
-    <a ui-sref="criarGiria({stateC: vm.estadoAtual})" class="btn btn-primary">
-      <i class="fa fa-plus-square"></i>
-      Cadastrar nova Giria
-    </a>
-  </div>
+  <!-- diretivas dos buttons -->
+  <button-action page="giria_state"></button-action>
 </div>
 
 <h2 class="text-center">
@@ -32,10 +20,6 @@
           <tr ng-repeat="giria in vm.girias">
             <td>{{ giria.giria | uppercase }}</td>
             <td>
-              <!--
-                criar directiva para verificar se existe mais de 1 description,
-                se houver, mostrar como modal.
-                -->
               <ul class="list-unstyled">
                 <li>
                   <div class="row">
