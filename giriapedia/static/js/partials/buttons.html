@@ -1,0 +1,43 @@
+<!-- significados -->
+<span ng-show="page == 'significados'">
+    <div class="col-xs-12">
+      <a ng-show="vm.currentUser" ui-sref="logout" class="btn btn-danger">
+        <i class="fa fa-sign-out"></i>
+        Sair
+      </a>
+      <a ng-hide="vm.currentUser" ui-sref="login" class="btn btn-info">
+        <i class="fa fa-sign-in"></i>
+        Login
+      </a>
+      <a ui-sref="giriasEstado({state: vm.estadoAtual})" class="btn btn-default">
+        <i class="fa fa-chevron-left"></i>
+        Voltar para Girias/{{ vm.estadoAtual | uppercase }}
+      </a>
+      <button type="button" class="btn btn-primary" ng-click="vm.openModal({giria: vm.giriaDesc.giria})">
+        <i class="fa fa-plus-square"></i>
+        Novo significado
+      </button>
+    </div>
+</span>
+
+<!-- girias_state -->
+<span ng-show="page == 'giria_state'">
+  <div class="col-xs-12">
+    <a ng-show="vm.currentUser" ui-sref="logout" class="btn btn-danger">
+      <i class="fa fa-sign-out"></i>
+      Sair
+    </a>
+    <a ng-hide="vm.currentUser" ui-sref="login" class="btn btn-info">
+      <i class="fa fa-sign-in"></i>
+      Login
+    </a>
+    <a ui-sref="home" class="btn btn-default">
+      <i class="fa fa-globe"></i>
+      Mapa
+    </a>
+    <a ui-sref="criarGiria({stateC: vm.estadoAtual})" class="btn btn-primary">
+      <i class="fa fa-plus-square"></i>
+      Nova Giria
+    </a>
+  </div>
+</span>
