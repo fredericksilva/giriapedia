@@ -54,5 +54,5 @@ docs/_build/
 
 # node moduler
 node_modules
-*/bundled.min.js
-*/styles.min.css
+giriapedia/static/js/bundled.min.js
+giriapedia/static/css/styles.min.css
